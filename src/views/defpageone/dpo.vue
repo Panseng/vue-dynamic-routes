@@ -1,0 +1,21 @@
+<template>
+    <div class="defpo-container">
+        <span>Default Page 01</span>
+    </div>
+</template>
+
+<script>
+export default {
+  name: 'DefPageOne'
+}
+</script>
+
+<style lang="scss" scoped>
+@import '../../style/mixin';
+.defpo-container {
+    background-color: rgb(241,124,103);
+    span{
+        @include center;
+    }
+}
+</style>
