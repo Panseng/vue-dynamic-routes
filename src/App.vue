@@ -9,7 +9,7 @@
 import headTop from '@/components/common/head'
 export default {
   name: 'App',
-  components:{
+  components: {
     headTop
   }
 }

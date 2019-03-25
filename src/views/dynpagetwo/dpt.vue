@@ -14,7 +14,7 @@ export default {
 @import '../../style/mixin';
 .dynpt-container {
     @include wh(100%, 100%);
-    background-color: white;
+    background-color: rgb(195,190,212);
     span {
         @include center;
     }
