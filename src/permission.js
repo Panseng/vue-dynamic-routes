@@ -4,7 +4,7 @@ import store from './store'
 const whiteList = ['/login']
 
 router.beforeEach((to, from, next) => {
-  if (store.getters.token) {
+  if (store.getters.token != null) {
     console.log('token is exist')
     if (to.path === '/login') {
       next({path: '/'})

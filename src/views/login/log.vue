@@ -23,8 +23,9 @@
 </template>
 
 <script>
-import { login } from '@/utils/getData'
-import { mapMutations } from 'vuex'
+import { mapState, mapActions } from 'vuex'
+import { computeRoutes } from '@/utils/common'
+
 export default {
   data () {
     return {
@@ -34,22 +35,27 @@ export default {
       }
     }
   },
+  computed: {
+    ...mapState([
+      'userInfo'
+    ])
+  },
   methods: {
-    ...mapMutations([
-      'recordUserInfo',
-      'recordToken'
+    ...mapActions([
+      'Login',
+      'GetInfo'
     ]),
 
     submit () {
-      let info = this.formData
-      login(info.username, info.password).then((res) => {
-        if (res.code === 50000) {
-          alert('账号或密码错误')
-        } else if (res.code === 20000) {
-          this.recordUserInfo(res.data.userInfo)
-          this.recordToken(res.data.token)
-          this.$router.push('/')
-        }
+      // actions：登录、获取info、计算动态路由
+      this.Login(this.formData).then(() => {
+        this.GetInfo().then(() => {
+          computeRoutes(this.userInfo.userroles)
+        }).catch((error) => {
+          console.log(error)
+        })
+        // 转入跳转页面或home
+        this.$router.push({path: this.redirect || '/'})
       }).catch((error) => {
         console.log(error)
       })

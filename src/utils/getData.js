@@ -8,5 +8,19 @@ export function login (username, password) {
       username,
       password
     }
-  }).then((res) => res.data)
+  })
+}
+
+export function getInfo () {
+  return request({
+    url: '/user/info',
+    method: 'get'
+  })
+}
+
+export function logOut () {
+  return request({
+    url: '/user/logout',
+    method: 'post'
+  })
 }

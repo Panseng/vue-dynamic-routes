@@ -31,28 +31,36 @@ export const defaultRoutes = [
         path: 'defpo',
         name: 'DefPageOne',
         component: DefPageOne
+      },
+      {
+        path: 'defpt',
+        name: 'DefPageTwo',
+        component: DefPageTwo
       }
     ]
-  },
-  {
-    path: '/defpt',
-    name: 'DefPageTwo',
-    component: DefPageTwo
   }
 ]
 
 export const dynamicRoutes = [
   {
-    path: '/dynpo',
-    name: 'DynPageOne',
-    component: DynPageOne,
-    meta: { roles: [ 'admin' ] }
-  },
-  {
-    path: '/dynpt',
-    name: 'DynPageTwo',
-    component: DynPageTwo,
-    meta: { roles: [ 'admin' ] }
+    path: '/dynamic',
+    name: 'Dynamic',
+    component: Layout,
+    redirect: '/dynamic/dynpo',
+    children: [
+      {
+        path: '/dynpo',
+        name: 'DynPageOne',
+        component: DynPageOne,
+        meta: { roles: [ 'admin' ] }
+      },
+      {
+        path: '/dynpt',
+        name: 'DynPageTwo',
+        component: DynPageTwo,
+        meta: { roles: [ 'admin' ] }
+      }
+    ]
   }
 ]
 
