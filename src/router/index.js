@@ -6,6 +6,8 @@ Vue.use(Router)
 // 懒加载组件
 const DefPageOne = r => require.ensure([], () => r(require('@/views/defpageone/dpo')), 'DefPageOne')
 const DefPageTwo = r => require.ensure([], () => r(require('@/views/defpagetwo/dpt')), 'DefPageTwo')
+const Login = r => require.ensure([], () => r(require('@/views/login/log')), 'login')
+const Layout = r => require.ensure([], () => r(require('@/views/layout/layout')), 'layout')
 
 // 动态权限
 const DynPageOne = r => require.ensure([], () => r(require('@/views/dynpageone/dpo')), 'DynPageOne')
@@ -15,9 +17,22 @@ const DynPageTwo = r => require.ensure([], () => r(require('@/views/dynpagetwo/d
 
 export const defaultRoutes = [
   {
+    path: '/login',
+    name: 'Login',
+    component: Login
+  },
+  {
     path: '/',
-    name: 'DefPageOne',
-    component: DefPageOne
+    name: 'Default',
+    component: Layout,
+    redirect: '/defpo',
+    children: [
+      {
+        path: 'defpo',
+        name: 'DefPageOne',
+        component: DefPageOne
+      }
+    ]
   },
   {
     path: '/defpt',

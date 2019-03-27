@@ -1,20 +1,18 @@
 <template>
   <div id="app">
-    <head-top></head-top>
     <router-view/>
   </div>
 </template>
 
 <script>
-import headTop from '@/components/common/head'
 export default {
-  name: 'App',
-  components: {
-    headTop
-  }
+  name: 'App'
 }
 </script>
 
 <style lang="scss">
 @import './style/common';
+#app{
+  z-index: 1;
+}
 </style>
