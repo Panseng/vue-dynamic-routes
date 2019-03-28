@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import { login, getInfo, logOut } from '@/utils/getData'
-import { setSessionStorage, clearSessionStorage } from '@/utils/sessionStorage'
+import { setStorage, clearAll } from '@/utils/storage'
 
 Vue.use(Vuex)
 
@@ -36,7 +36,8 @@ const actions = {
     return new Promise((resolve, reject) => {
       login(userInfo.username, userInfo.password).then((res) => {
         commit('recordToken', res.data.token)
-        setSessionStorage('token', res.data.token)
+        // setSessionStorage('token', res.data.token)
+        setStorage('token', res.data.token)
         resolve()
       }).catch((error) => {
         reject(error)
@@ -62,7 +63,8 @@ const actions = {
         commit('recordUserInfo', null)
         commit('recordRoutes', [])
         commit('recordToken', null)
-        clearSessionStorage()
+        // clearSessionStorage()
+        clearAll()
         resolve()
       }).catch((error) => {
         reject(error)

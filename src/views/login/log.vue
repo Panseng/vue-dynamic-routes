@@ -24,7 +24,6 @@
 
 <script>
 import { mapState, mapActions } from 'vuex'
-import { computeRoutes } from '@/utils/common'
 
 export default {
   data () {
@@ -47,13 +46,9 @@ export default {
     ]),
 
     submit () {
+      // 不能在promise中执行马上需要的计算，容易导致数据接不上
       // actions：登录、获取info、计算动态路由
       this.Login(this.formData).then(() => {
-        this.GetInfo().then(() => {
-          computeRoutes(this.userInfo.userroles)
-        }).catch((error) => {
-          console.log(error)
-        })
         // 转入跳转页面或home
         this.$router.push({path: this.redirect || '/'})
       }).catch((error) => {

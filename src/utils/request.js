@@ -1,7 +1,6 @@
 import axios from 'axios'
-// import store from '@/store'
 import { baseUrl } from '@/config/env'
-import { getSessionStorage, clearSessionStorage } from '@/utils/sessionStorage'
+import { getStorage, clearAll } from '@/utils/storage'
 
 const request = axios.create({
   baseURL: baseUrl,
@@ -10,8 +9,8 @@ const request = axios.create({
 
 request.interceptors.request.use(
   config => {
-    if (getSessionStorage('token')) {
-      config.headers['X-Token'] = getSessionStorage('token')
+    if (getStorage('token')) {
+      config.headers['X-Token'] = getStorage('token')
     }
     return config
   },
@@ -26,7 +25,7 @@ request.interceptors.response.use(
     if (response.data.code !== 20000) {
       // 无效token
       if (response.data.code === 50002) {
-        clearSessionStorage()
+        clearAll()
       }
       return Promise.reject(response.data.code)
     } else {

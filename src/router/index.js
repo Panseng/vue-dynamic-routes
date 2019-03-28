@@ -47,15 +47,16 @@ export const dynamicRoutes = [
     name: 'Dynamic',
     component: Layout,
     redirect: '/dynamic/dynpo',
+    meta: { roles: ['admin'] },
     children: [
       {
-        path: '/dynpo',
+        path: 'dynpo',
         name: 'DynPageOne',
         component: DynPageOne,
         meta: { roles: [ 'admin' ] }
       },
       {
-        path: '/dynpt',
+        path: 'dynpt',
         name: 'DynPageTwo',
         component: DynPageTwo,
         meta: { roles: [ 'admin' ] }

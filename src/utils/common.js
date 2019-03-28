@@ -1,5 +1,5 @@
 import store from '@/store'
-import { defaultRoutes, dynamicRoutes } from '@/router'
+import router, { defaultRoutes, dynamicRoutes } from '@/router'
 
 function hasPermission (roles, route) {
   if (!route.meta) return true
@@ -21,6 +21,8 @@ function accessRoutes (roles, routes) {
 
 export function computeRoutes (roles) {
   let tem = accessRoutes(roles, dynamicRoutes)
+  // 加载路由
+  router.addRoutes(tem)
   let routes = defaultRoutes.concat(tem)
   store.commit('recordRoutes', routes)
 }

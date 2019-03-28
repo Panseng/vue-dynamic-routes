@@ -1,7 +1,8 @@
 <template>
   <div class="header-container">
-    <ul>
-      <li v-for="route in routes" :key="route.name">
+    <div class="nav-list">
+      <ul>
+      <li class="route" v-for="(route, index) in routes" :key="index" @mouseover="reverseShow(index)" @mouseout="reverseShow()">
         <router-link :to="{name: route.name}">{{ route.name }}</router-link>
         <ul v-if="route.children">
           <li v-for="item in route.children" :key="item.name">
@@ -10,7 +11,8 @@
         </ul>
       </li>
       <li @click="logOut" class="change-roles">登出</li>
-    </ul>
+      </ul>
+    </div>
   </div>
 </template>
 
@@ -20,7 +22,8 @@ export default {
   name: 'headTop',
   data () {
     return {
-      routes: []
+      routes: [],
+      targetIndex: -1
     }
   },
   computed: {
@@ -29,9 +32,10 @@ export default {
     ])
   },
   created () {
+    this.routes = this.navRoutes(this.userRoutes)
+    console.log(this.userRoutes)
   },
   mounted () {
-    this.routes = this.navRoutes(this.userRoutes)
   },
   methods: {
     ...mapActions([
@@ -49,11 +53,16 @@ export default {
     },
     logOut () {
       this.LogOut().then(() => {
+        location.reload()
         this.$router.push({path: '/'})
         console.log('then: ' + sessionStorage.getItem('Token'))
       }).catch((error) => {
         console.log(error)
       })
+    },
+
+    reverseShow ({index = -1}) {
+      this.targetIndex = index
     }
   },
   watch: {
@@ -70,20 +79,34 @@ export default {
   background-color: rgb(76,180,231);
   position: fixed;
   z-index: 50 ;
-  ul{
+  .nav-list{
+    @include wh(auto, 100%);
     @include center;
-    li{
-      display: inline-block;
-      border-right: 1px solid gray;
-      padding: 2px 10px;
-      margin: 0;
-    }
-    li:last-of-type{
-      border-right: none;
-    }
-    .change-roles{
-      background-color: rgb(241,124,103);
-      padding: .3rem .6rem;
+    background-color: transparent;
+    ul{
+      display: flex;
+      flex-direction: row;
+      align-items: flex-start;
+      position: relative;
+      li{
+        display: inline-block;
+        position: relative;
+        ul {
+          display: flex;
+          flex-direction: column;
+          li{
+            display: block;
+            text-indent: .5em;
+          }
+        }
+        .show {
+          visibility: visible;
+        }
+      }
+      .change-roles{
+        background-color: rgb(241,124,103);
+        padding: .3rem .6rem;
+      }
     }
   }
 }
