@@ -2,9 +2,9 @@
   <div class="header-container">
     <div class="nav-list">
       <ul>
-      <li class="route" v-for="(route, index) in routes" :key="index" @mouseover="reverseShow(index)" @mouseout="reverseShow()">
+      <li class="route" v-for="(route, index) in routes" :key="index" @mouseenter="reverseShow(index)" @mouseleave="reverseShow()">
         <router-link :to="{name: route.name}">{{ route.name }}</router-link>
-        <ul v-if="route.children">
+        <ul v-if="route.children" :class="(index == targetIndex)? 'show':''">
           <li v-for="item in route.children" :key="item.name">
             <router-link :to="{name: item.name}">{{ item.name }}</router-link>
           </li>
@@ -33,7 +33,6 @@ export default {
   },
   created () {
     this.routes = this.navRoutes(this.userRoutes)
-    console.log(this.userRoutes)
   },
   mounted () {
   },
@@ -61,8 +60,8 @@ export default {
       })
     },
 
-    reverseShow ({index = -1}) {
-      this.targetIndex = index
+    reverseShow (i = -1) {
+      this.targetIndex = i
     }
   },
   watch: {
@@ -78,7 +77,7 @@ export default {
   @include wh(100%, 8%);
   background-color: rgb(76,180,231);
   position: fixed;
-  z-index: 50 ;
+  z-index: 50;
   .nav-list{
     @include wh(auto, 100%);
     @include center;
@@ -88,10 +87,12 @@ export default {
       flex-direction: row;
       align-items: flex-start;
       position: relative;
+      top: 40%;
       li{
         display: inline-block;
         position: relative;
         ul {
+          visibility: hidden;
           display: flex;
           flex-direction: column;
           li{
@@ -110,4 +111,5 @@ export default {
     }
   }
 }
+
 </style>
