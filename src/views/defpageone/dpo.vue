@@ -13,6 +13,8 @@ export default {
 <style lang="scss" scoped>
 @import '../../style/mixin';
 .defpo-container {
+    position: fixed;
+    @include wh(100%,100%);
     background-color: rgb(221,240,237);
     span{
         @include center;

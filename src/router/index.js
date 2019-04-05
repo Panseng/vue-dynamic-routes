@@ -1,8 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
-Vue.use(Router)
-
 // 懒加载组件
 const DefPageOne = r => require.ensure([], () => r(require('@/views/defpageone/dpo')), 'DefPageOne')
 const DefPageTwo = r => require.ensure([], () => r(require('@/views/defpagetwo/dpt')), 'DefPageTwo')
@@ -12,8 +10,8 @@ const Layout = r => require.ensure([], () => r(require('@/views/layout/layout'))
 // 动态权限
 const DynPageOne = r => require.ensure([], () => r(require('@/views/dynpageone/dpo')), 'DynPageOne')
 const DynPageTwo = r => require.ensure([], () => r(require('@/views/dynpagetwo/dpt')), 'DynPageTwo')
-// const DynPageThree = r => require.ensure([], () => r(require('@/views/dynpagethree/dpth')), 'DynPageThree')
-// const DynPageFour = r => require.ensuer([], () => r(require('@/views/dynpagefour/dpf')), 'DynPageFour')
+
+Vue.use(Router)
 
 export const defaultRoutes = [
   {
@@ -60,6 +58,16 @@ export const dynamicRoutes = [
         name: 'DynPageTwo',
         component: DynPageTwo,
         meta: { roles: [ 'admin' ] }
+      },
+      {
+        path: 'dynpth',
+        name: 'Dy03',
+        component: () => import('@/views/dynpagethree/dpth')
+      },
+      {
+        path: 'dynpf',
+        name: 'Dy04',
+        component: () => import('@/views/dynpagefour/dpf')
       }
     ]
   }

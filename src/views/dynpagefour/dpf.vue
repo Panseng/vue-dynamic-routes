@@ -13,6 +13,7 @@ export default {
 <style lang="scss" scoped>
 @import '../../style/mixin';
 .dynpf-container {
+    position: fixed;
     @include wh(100%, 100%);
     background-color: rgb(255,238,147);
     span {

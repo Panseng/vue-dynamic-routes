@@ -4,7 +4,7 @@
       <ul>
       <li class="route" v-for="(route, index) in routes" :key="index" @mouseenter="reverseShow(index)" @mouseleave="reverseShow()">
         <router-link :to="{name: route.name}">{{ route.name }}</router-link>
-        <ul v-if="route.children" :class="(index == targetIndex)? 'show':''">
+        <ul v-if="route.children" v-show="index === targetIndex">
           <li v-for="item in route.children" :key="item.name">
             <router-link :to="{name: item.name}">{{ item.name }}</router-link>
           </li>
@@ -77,36 +77,38 @@ export default {
   @include wh(100%, 8%);
   background-color: rgb(76,180,231);
   position: fixed;
-  z-index: 50;
+  z-index: 150;
   .nav-list{
     @include wh(auto, 100%);
     @include center;
+    left: 40%;
     background-color: transparent;
     ul{
+      position: absolute;
+      height: 100%;
       display: flex;
       flex-direction: row;
       align-items: flex-start;
-      position: relative;
-      top: 40%;
       li{
         display: inline-block;
-        position: relative;
+        margin: auto 1rem;
         ul {
-          visibility: hidden;
-          display: flex;
-          flex-direction: column;
+          display: block;
           li{
             display: block;
             text-indent: .5em;
           }
         }
-        .show {
-          visibility: visible;
-        }
+      }
+      a:hover {
+        font-weight: 600;
       }
       .change-roles{
         background-color: rgb(241,124,103);
         padding: .3rem .6rem;
+        width: 3.6rem;
+        text-align: center;
+
       }
     }
   }
